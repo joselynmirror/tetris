@@ -1,3 +1,7 @@
+## Requisitos
+
+- Python 3
+
 ## Instrucciones de uso
 
 1. Crear un ambiente virtual: `python3 -m venv venv`
