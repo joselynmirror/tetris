@@ -14,7 +14,7 @@ player_board = Board("Jugador")
 ai_board = Board("IA")
 player_printer = Printer(player_board, screen, font, 0)
 ai_printer = Printer(ai_board, screen, font, 640)
-ai = AI(player_board)
+ai = AI(ai_board)
 time_delay = 200
 timer_event = pygame.USEREVENT + 1
 pygame.time.set_timer(timer_event, time_delay)
@@ -30,20 +30,18 @@ def main():
                 pygame.quit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    player_board.current_tetromino.move(-1, 0)
-                    ai_board.current_tetromino.move(-1, 0)
-                if event.key == pygame.K_RIGHT:
-                    player_board.current_tetromino.move(1, 0)
-                    ai_board.current_tetromino.move(1, 0)
                 if event.key == pygame.K_UP:
                     player_board.current_tetromino.rotate()
-                    ai_board.current_tetromino.rotate()
+                if event.key == pygame.K_DOWN:
+                    player_board.current_tetromino.move(0, 1)
+                if event.key == pygame.K_RIGHT:
+                    player_board.current_tetromino.move(1, 0)
+                if event.key == pygame.K_LEFT:
+                    player_board.current_tetromino.move(-1, 0)
 
             if event.type == timer_event:
-                # ai.best_move(board)
                 player_board.current_tetromino.move(0, 1)
-                ai_board.current_tetromino.move(0, 1)
+                # ai.best_move()
 
         player_printer.print_board()
         ai_printer.print_board()

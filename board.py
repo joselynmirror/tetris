@@ -50,6 +50,3 @@ class Board:
                     self.grid[i + self.block_offset[1]][j + self.block_offset[0]] = (
                         block_element
                     )
-
-    def get_height(self):
-        pass
