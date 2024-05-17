@@ -5,17 +5,18 @@ from tetromino import Tetromino
 
 
 class Board:
-    def __init__(self):
+    def __init__(self, player_name):
         self.game_is_running = True
         self.score = 0
         self.rows = 20
         self.columns = 10
-        self.cell_size = 30
+        self.cell_size = 32
         self.size = (self.columns * self.cell_size, self.rows * self.cell_size)
         self.grid = [[0 for _ in range(self.columns)] for _ in range(self.rows)]
         self.next_tetromino = Tetromino(random.choice(TETROMINOES), self)
         self.current_tetromino = Tetromino(random.choice(TETROMINOES), self)
         self.block_offset = [int(self.columns / 2) - 1, 0]
+        self.player_name = player_name
 
     def clear_rows(self):
         for i, row in enumerate(self.grid):

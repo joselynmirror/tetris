@@ -10,16 +10,18 @@ pygame.display.set_caption(WINDOW_TITLE)
 screen = pygame.display.set_mode(SCREEN_RESOLUTION)
 clock = pygame.time.Clock()
 font = pygame.font.Font(None, 32)
-board = Board()
-printer = Printer(board, screen, font)
-ai = AI(board)
+player_board = Board("Jugador")
+ai_board = Board("IA")
+player_printer = Printer(player_board, screen, font, 0)
+ai_printer = Printer(ai_board, screen, font, 640)
+ai = AI(player_board)
 time_delay = 200
 timer_event = pygame.USEREVENT + 1
 pygame.time.set_timer(timer_event, time_delay)
 
 
 def main():
-    while board.game_is_running:
+    while player_board.game_is_running:
         clock.tick(FPS)
         screen.fill(BACKGROUND_COLOR)
 
@@ -29,17 +31,22 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    board.current_tetromino.move(-1, 0)
+                    player_board.current_tetromino.move(-1, 0)
+                    ai_board.current_tetromino.move(-1, 0)
                 if event.key == pygame.K_RIGHT:
-                    board.current_tetromino.move(1, 0)
+                    player_board.current_tetromino.move(1, 0)
+                    ai_board.current_tetromino.move(1, 0)
                 if event.key == pygame.K_UP:
-                    board.current_tetromino.rotate()
+                    player_board.current_tetromino.rotate()
+                    ai_board.current_tetromino.rotate()
 
             if event.type == timer_event:
                 # ai.best_move(board)
-                board.current_tetromino.move(0, 1)
+                player_board.current_tetromino.move(0, 1)
+                ai_board.current_tetromino.move(0, 1)
 
-        printer.print_board()
+        player_printer.print_board()
+        ai_printer.print_board()
         pygame.display.update()
 
 
